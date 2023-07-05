@@ -101,7 +101,24 @@ class PeminjamanController extends Controller
 
         // Membuat file PDF menggunakan DOMPDF
         $pdf = \PDF::loadView('pdf_view', ['data' => $data]);
-        return $pdf->download('data_peminjaman.pdf');
+        return $pdf->download('data_peminjaman_ruangan.pdf');
+    }
+
+    public function terimaPengembalian($id)
+    {
+        $key = $id;
+
+        // Mendapatkan data peminjaman
+        $peminjamanRef = $this->database->getReference('peminjaman/' . $key);
+
+        // Update peminjaman jadi true
+        $peminjamanRef->getChild('pengembalianDiterima')->set(true);
+
+        if ($peminjamanRef) {
+            return redirect('peminjaman')->with('status', 'Berhasil terima pengembalian');
+        } else {
+            return redirect('peminjaman')->with('status', 'Gagal menerima pengembalian');
+        }
     }
 
     //public function exportexcel()

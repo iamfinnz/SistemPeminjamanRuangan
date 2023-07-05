@@ -2,7 +2,7 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="{{ route('home') }}" target="_blank">
-            <img src="{{ asset('img/logo-ct-dark.png') }}" class="navbar-brand-img h-100" alt="main_logo">
+            <img src="{{ asset('img/logo.png') }}" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold">SPR Politeknik Caltex Riau</span>
         </a>
     </div>
@@ -20,13 +20,29 @@
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'peminjaman' ? 'active' : '' }}" href="{{ route('peminjaman') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fa fa-ticket text-dark text-sm opacity-10" aria-hidden="true"></i>
+                        <i class="fa fa-university text-dark text-sm opacity-10" aria-hidden="true"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Peminjaman Ruangan</span>
+                    <span class="nav-link-text ms-1">Kelola Peminjaman</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link">
+                <a class="nav-link {{ Route::currentRouteName() == 'matakuliah' ? 'active' : '' }}" href="{{ route('matakuliah') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa fa-ticket text-dark text-sm opacity-10" aria-hidden="true"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Kelola Mata Kuliah</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('template') }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa fa-download text-dark text-sm opacity-10" aria-hidden="true"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Download Template</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() == 'akun' ? 'active' : '' }}" href="{{ route('akun') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa fa-user text-dark text-sm opacity-10" aria-hidden="true"></i>
                     </div>

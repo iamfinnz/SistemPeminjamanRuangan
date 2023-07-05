@@ -5,7 +5,9 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <!--   CSS Datatables   -->
         <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+        <!--   CSS Toastr   -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <title>
             Dashboard | SPR Politeknik Caltex Riau
@@ -54,7 +56,7 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-secondary text-center rounded-circle">
-                                    <i class="fa fa-ticket text-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa fa-university text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -66,30 +68,29 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <h6>Tabel Pengajuan</h6>
+                        <h5>Tabel Pengajuan Peminjaman</h5>
                     </div>
                     <!--
                     <div class="card-header">
                         <a class="btn btn-primary" href="{{ url('create-pengajuan') }}">Tambah</a>
                     </div> -->
                     <div class="card-body">
-                        <table class="table table-responsive align-items-center mb-0" id="tb_pengajuan">
+                        <table class="table table-responsive table-bordered align-items-center mb-0" id="tb_pengajuan">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>NIM</th>
-                                    <th>Program Studi</th>
-                                    <th>Ruangan</th>
-                                    <th>Tanggal</th>
-                                    <th>Jam Mulai</th>
-                                    <th>Jam Selesai</th>
-                                    <th>Fasilitas</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th style="text-align: center;">ID</th>
+                                    <th style="text-align: center;">Nama</th>
+                                    <th style="text-align: center;">NIM</th>
+                                    <th style="text-align: center;">Program Studi</th>
+                                    <th style="text-align: center;">Ruangan</th>
+                                    <th style="text-align: center;">Tanggal</th>
+                                    <th style="text-align: center;">Jam Mulai</th>
+                                    <th style="text-align: center;">Jam Selesai</th>
+                                    <th style="text-align: center;">Fasilitas</th>
+                                    <th style="text-align: center;">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="text-align: center;">
                                 @php $i=1; @endphp
                                 @forelse ($pengajuan as $key => $item)
                                 <tr>
@@ -102,8 +103,9 @@
                                     <td>{{ $item['jmulai'] }}</td>
                                     <td>{{ $item['jselesai'] }}</td>
                                     <td>{{ $item['fasilitas'] }}</td>
-                                    <td><a href="{{ url('peminjaman/'.$key) }}" class="btn btn-sm btn-success">Terima</a></td>
-                                    <td><a href="{{ url('home/'.$key) }}" class="btn btn-sm btn-danger">Tolak</a></td>
+                                    <td><a href="{{ url('peminjaman/'.$key) }}" class="btn btn-sm btn-success">Terima</a>
+                                        <a href="{{ url('home/'.$key) }}" class="btn btn-sm btn-danger">Tolak</a>
+                                    </td>
                                 </tr>
                                 @empty
                                 <tr>

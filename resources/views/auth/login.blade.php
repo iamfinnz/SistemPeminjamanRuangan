@@ -48,12 +48,12 @@
                                     <a href="/password/reset" class="text-primary text-gradient font-weight-bold">Lupa Password?</a>
                                 </p>
                             </div>
-                            <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                            <!-- <div class="card-footer text-center pt-0 px-lg-2 px-1">
                                 <p class="mb-4 text-sm mx-auto">
                                     Belum punya akun?
                                     <a href="{{ route('register') }}" class="text-primary text-gradient font-weight-bold">Register</a>
                                 </p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

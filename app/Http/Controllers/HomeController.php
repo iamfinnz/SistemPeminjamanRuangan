@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Kreait\Firebase\Database;
 use Illuminate\Http\Request;
+use Kreait\Firebase\Database\Query;
+use Kreait\Firebase\Database\Reference;
+use Kreait\Firebase\Exception\DatabaseException;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 
 class HomeController extends Controller
 {
@@ -27,10 +31,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $pengajuan = $this->database->getReference($this->tablename)->getValue();
-        $total_pengajuan = $reference = $this->database->getReference($this->tablename)->getSnapshot()->numChildren();
-        $total_peminjaman = $reference = $this->database->getReference($this->tablename2)->getSnapshot()->numChildren();
-        return view('home', compact('pengajuan', 'total_pengajuan', 'total_peminjaman'));
+        try {
+            $total_pengajuan = $reference = $this->database->getReference($this->tablename)->orderByChild('pengajuanDiterima')->equalTo(false)->getSnapshot()->numChildren();
+            $total_peminjaman = $reference = $this->database->getReference($this->tablename2)->getSnapshot()->numChildren();
+            /** @var Query|Reference $ref */
+            $ref = $this->database->getReference($this->tablename)->orderByChild('pengajuanDiterima')->equalTo(false);
+            $pengajuan = $ref->getValue();
+
+            return view('home', compact('pengajuan', 'total_pengajuan', 'total_peminjaman'));
+        } catch (DatabaseException $e) {
+            // Tangani kesalahan jika ada
+            dd($e->getMessage());
+        }
     }
 
     public function create()
@@ -61,11 +73,18 @@ class HomeController extends Controller
     public function terima($id)
     {
         $key = $id;
-        $terimadata = $this->database->getReference($this->tablename)->getChild($key)->getValue();
 
-        $postRef = $this->database->getReference($this->tablename2)->push($terimadata);
-        $del_data = $this->database->getReference($this->tablename . '/' . $key)->remove();
-        if ($postRef) {
+        // Mendapatkan data pengajuan
+        $pengajuanRef = $this->database->getReference('pengajuan/' . $key);
+
+        // Update pengajuan jadi true
+        $pengajuanRef->getChild('pengajuanDiterima')->set(true);
+
+        // Buat data peminjaman
+        $data = $this->database->getReference($this->tablename)->getChild($key)->getValue();
+        $postRef = $this->database->getReference($this->tablename2)->push($data);
+
+        if ($pengajuanRef) {
             return redirect('peminjaman')->with('status', 'Pengajuan diterima');
         } else {
             return redirect('peminjaman')->with('status', 'Gagal menerima pengajuan');
@@ -77,7 +96,7 @@ class HomeController extends Controller
         $key = $id;
         $del_data = $this->database->getReference($this->tablename . '/' . $key)->remove();
         if ($del_data) {
-            return redirect('home')->with('status', 'Pengajuan ditolak');
+            return redirect('home')->with('status', 'Berhasil tolak pengajuan');
         } else {
             return redirect('home')->with('status', 'Tidak dapat menolak pengajuan');
         }

@@ -11,7 +11,7 @@
         "php": "^7.3|^8.0",
         "barryvdh/laravel-dompdf": "^2.0",
         "fideloper/proxy": "^4.4",
-        "firebase/php-jwt": "^5.0",
+        "firebase/php-jwt": "^5.5",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3.0",
         "kreait/laravel-firebase": "^3.4",
@@ -20,7 +20,8 @@
         "laravel/ui": "^3.1",
         "laravelcollective/html": "^6.2",
         "maatwebsite/excel": "^3.1",
-        "phpoffice/phpspreadsheet": "^1.28",
+        "phpoffice/phpexcel": "^1.8",
+        "phpoffice/phpspreadsheet": "^1.29",
         "plokko/firebase-php": "^0.1.4",
         "plokko/laravel-firebase": "^0.1.5"
     },

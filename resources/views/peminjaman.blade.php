@@ -12,6 +12,13 @@
         <title>
             Peminjaman | SPR Politeknik Caltex Riau
         </title>
+        <style>
+            .status {
+                color: #ffc700;
+                padding-top: 8px;
+                margin-right: 10px;
+            }
+        </style>
     </head>
 
     </html>
@@ -24,30 +31,29 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <h6>Tabel Peminjaman Ruangan</h6>
+                        <h5>Tabel Peminjaman Ruangan</h5>
                     </div>
                     <div class="card-header">
                         <a class="btn btn-primary" href="{{ url('create-peminjaman') }}">Tambah</a>
                         <a class="btn btn-success float-end" href="{{ url('export-pdf') }}">Export PDF</a>
                     </div>
                     <div class="card-body">
-                        <table class="table table-responsive align-items-center mb-0" id="tb_peminjaman">
+                        <table class="table table-responsive table-bordered align-items-center mb-0" id="tb_peminjaman">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>NIM</th>
-                                    <th>Program Studi</th>
-                                    <th>Ruangan</th>
-                                    <th>Tanggal</th>
-                                    <th>Jam Mulai</th>
-                                    <th>Jam Selesai</th>
-                                    <th>Fasilitas</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th style="text-align: center;">ID</th>
+                                    <th style="text-align: center;">Nama</th>
+                                    <th style="text-align: center;">NIM</th>
+                                    <th style="text-align: center;">Program Studi</th>
+                                    <th style="text-align: center;">Ruangan</th>
+                                    <th style="text-align: center;">Tanggal</th>
+                                    <th style="text-align: center;">Jam Mulai</th>
+                                    <th style="text-align: center;">Jam Selesai</th>
+                                    <th style="text-align: center;">Fasilitas</th>
+                                    <th style="text-align: center;">Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="text-align: center;">
                                 @php $i=1; @endphp
                                 @forelse ($peminjaman as $key => $item)
                                 <tr>
@@ -60,8 +66,32 @@
                                     <td>{{ $item['jmulai'] }}</td>
                                     <td>{{ $item['jselesai'] }}</td>
                                     <td>{{ $item['fasilitas'] }}</td>
-                                    <td><a href="{{ url('edit-peminjaman/'.$key) }}" class="btn btn-sm btn-secondary">Edit</a></td>
-                                    <td><a href="{{ url('delete-peminjaman/'.$key) }}" class="btn btn-sm btn-danger">Hapus</a></td>
+                                    <td style="display: flex;">
+                                        @if($item['pengajuanDiterima'] === true)
+                                        <a class="status">Diterima</a>
+                                        @elseif($item['pengajuanDiterima'] === false)
+                                        <a></a>
+                                        @else
+                                        <a>Data tidak valid</a>
+                                        @endif
+
+                                        @if($item['pengembalianDiterima'] === true)
+                                        <a style="color: #2dce89; padding-top:8px">Selesai</a>
+                                        @elseif($item['pengembalianDiterima'] === false)
+                                        <div class="dropdown" style="margin-left: 10px;">
+                                            <a href="" class="btn bg-gradient-primary dropdown-toggle " data-bs-toggle="dropdown" id="navbarDropdownMenu">Pengembalian
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ url('terima-pengembalian/'.$key) }}">Sudah</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        @else
+                                        <a>Data tidak valid</a>
+                                        @endif
+                                        <a href="{{ url('delete-peminjaman/'.$key) }}" class="btn btn-sm btn-danger" style="margin-left: 10px;">Hapus</a>
+                                    </td>
                                 </tr>
                                 @empty
                                 <tr>
